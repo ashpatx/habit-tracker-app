@@ -1,12 +1,15 @@
-import 'dart:js';
-
 import 'package:demoapp/pages/theme/theme_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'pages/home_page.dart';
 
 void main() {
-  runApp(ChangeNotifier(
-    create: (context) => ThemeProvider(),
-  ));
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => ThemeProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -18,11 +21,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Habit Tracker',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
-        useMaterial3: true,
-      ),
-      home: HomePage(),
+      home: const HomePage(),
+      theme: Provider.of<ThemeProvider>(context).themeData,
     );
   }
 }
