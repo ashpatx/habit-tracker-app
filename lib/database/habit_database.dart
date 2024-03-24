@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:demoapp/models/app_settings.dart';
 import 'package:demoapp/models/habit.dart';
 import 'package:flutter/cupertino.dart';
@@ -79,7 +77,7 @@ class HabitDatabase extends ChangeNotifier {
           //add the current date if it's not already in the list
           habit.completedDays.add(
             DateTime(
-              today.year
+              today.year,
               today.month,
               today.day,
               ),

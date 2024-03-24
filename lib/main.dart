@@ -6,13 +6,21 @@ import 'pages/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  //initialize db should be an async function
+  //initialize DB as an async function
   await HabitDatabase.initialize();
   await HabitDatabase().saveFirstLaunchDate();
+
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => ThemeProvider(),
-      child: const MyApp(),
+    //multiple providers for DB and theme
+    MultiProvider(
+      providers: [
+        //DB
+        ChangeNotifierProvider(create: (context) => HabitDatabase()),
+
+        //theme provider
+        ChangeNotifierProvider(create: (context) => ThemeData()),
+      ],
+      child: const myApp(),
     ),
   );
 }
