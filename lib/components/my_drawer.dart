@@ -9,15 +9,14 @@ class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        child: Center(
-          child: CupertinoSwitch(
-            value: Provider.of<ThemeProvider>(context).isDarkMode,
-            onChanged: (value) =>
-                Provider.of<ThemeProvider>(context, listen: false)
-                    .toggleTheme(),
-          ),
+      backgroundColor: Theme.of(context).colorScheme.background,
+      child: Center(
+        child: CupertinoSwitch(
+          value: Provider.of<ThemeProvider>(context).isDarkMode,
+          onChanged: (value) =>
+              Provider.of<ThemeProvider>(context, listen: false).toggleTheme(),
         ),
-      ), //Menu;
+      ),
+    ); //Menu;
   }
 }

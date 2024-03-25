@@ -18,7 +18,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => HabitDatabase()),
 
         //theme provider
-        ChangeNotifierProvider(create: (context) => ThemeData()),
+        ChangeNotifierProvider(create: (context) => ThemeProvider()),
       ],
       child: const myApp(),
     ),

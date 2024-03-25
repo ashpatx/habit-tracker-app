@@ -67,7 +67,7 @@ class HabitDatabase extends ChangeNotifier {
   Future<void> updateHabitCompletion(int id, bool isCompleted) async {
     //find the specific habit
     final habit = await isar.habits.get(id);
-    //update completion status 
+    //update completion status
     if (habit != null) {
       await isar.writeTxn(() async {
         //if habit is completed -> add the current date to the completedDays list
@@ -80,33 +80,35 @@ class HabitDatabase extends ChangeNotifier {
               today.year,
               today.month,
               today.day,
-              ),
+            ),
           );
         }
-        //if habit is not completed -> remove the current date from the list 
-        else{
+        //if habit is not completed -> remove the current date from the list
+        else {
           //remove the current date if the habit is marked as 'not complete'
-          habit.completedDays.removeWhere((date) => 
-          date.year == DateTime.now().year &&
-          date.month == DateTime.now().month &&
-          date.day == DateTime.now().day,
+          habit.completedDays.removeWhere(
+            (date) =>
+                date.year == DateTime.now().year &&
+                date.month == DateTime.now().month &&
+                date.day == DateTime.now().day,
           );
         }
         //save updated habits back to DB
         await isar.habits.put(habit);
       });
     }
-      //re-read from DB
-      readHabits();
+    //re-read from DB
+    readHabits();
   }
+
   //Update: Edit habit
-  Future<void> updateHabitName(int id, String newName) async{
+  Future<void> updateHabitName(int id, String newName) async {
     //locate specific habit
     final habit = await isar.habits.get(id);
     //update habit name
-    if(habit != null) {
+    if (habit != null) {
       //update name
-      await.isar.writeTxn(() async {
+      await isar.writeTxn(() async {
         habit.name = newName;
         //save updated habit back to the DB
         await isar.habits.put(habit);
@@ -117,10 +119,10 @@ class HabitDatabase extends ChangeNotifier {
   }
 
   //Delete: Delete habit
-  Future<void> deleteHabit(int id) async{
+  Future<void> deleteHabit(int id) async {
     //delete habit in DB
     await isar.writeTxn(() async {
-      await.isar.habits.delete(id);
+      await isar.habits.delete(id);
     });
     //re-read from DB
     readHabits();
